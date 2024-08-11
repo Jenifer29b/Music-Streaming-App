@@ -1,0 +1,14 @@
+#likeButton {
+    font-size: 24px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #e0e0e0;
+    /* Default heart color */
+    transition: color 0.3s;
+}
+
+#likeButton.liked {
+    color: #d61414;
+    /* Red color when liked */
+}
