@@ -19,5 +19,5 @@ Technologies used : React
     The React-Router-dom is used to navigate across the various components 
     It is used for all signup , login, and the entire application
    
-# This Frontend is deployed in the Netlify.com (https://capstone-frontend-60.netlify.app/)
+# This Frontend is deployed in the Netlify.com 
 # All the Screenshots were attached in the Public folder
