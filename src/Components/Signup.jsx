@@ -13,11 +13,14 @@ const Signup = () => {
   const handleSubmit = async (values) => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:4000/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      const response = await fetch(
+        "https://capstonebackend-aifo.onrender.com/api/auth/signup",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
