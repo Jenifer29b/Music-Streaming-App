@@ -39,9 +39,13 @@ const Signup = () => {
 
   return (
     <Form onFinish={handleSubmit} layout="vertical">
+      <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
       <Form.Item
         name="email"
+        className="font-bold"
+        type="email"
         label="Email"
+        placeholder="Enter your email"
         rules={[
           {
             required: true,
@@ -54,14 +58,18 @@ const Signup = () => {
       </Form.Item>
       <Form.Item
         name="password"
+        className="font-bold"
         label="Password"
+        placeholder="Enter your password"
         rules={[{ required: true, message: "Please enter your password!" }]}
       >
         <Input.Password />
       </Form.Item>
       <Form.Item
         name="conformpassword"
+        className="font-bold"
         label="Confirm Password"
+        placeholder="Confirm your password"
         rules={[{ required: true, message: "Please confirm your password!" }]}
       >
         <Input.Password />
@@ -71,8 +79,8 @@ const Signup = () => {
           Sign Up
         </Button>
 
-        <Button type="link" href="/login">
-          Already have an account?
+        <Button type="link" href="/login" className="font-bold text-black">
+          Already have an account?? Login here.
         </Button>
       </Form.Item>
     </Form>

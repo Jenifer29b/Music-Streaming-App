@@ -38,7 +38,9 @@ const Login = () => {
 
   return (
     <Form onFinish={handleSubmit} layout="vertical">
+      <h1 className="text-2xl font-bold mb-4">Log In</h1>
       <Form.Item
+        className="font-bold"
         name="email"
         label="Email"
         rules={[
@@ -52,6 +54,7 @@ const Login = () => {
         <Input />
       </Form.Item>
       <Form.Item
+        className="font-bold"
         name="password"
         label="Password"
         rules={[{ required: true, message: "Please enter your password!" }]}

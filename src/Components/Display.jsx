@@ -11,7 +11,6 @@ const Display = () => {
   const displayRef = useRef();
   const location = useLocation();
   const isAlbum = location.pathname.includes("album");
-
   const albumId = isAlbum ? location.pathname.split("/").pop() : "";
 
   const bgcolor =
@@ -37,7 +36,7 @@ const Display = () => {
           <Route path="/" element={<DisplayHome />} />
 
           <Route
-            path="*/album/:id"
+            path="/album/:id"
             element={
               <DisplayAlbum album={albumsData.find((x) => x._id === albumId)} />
             }
