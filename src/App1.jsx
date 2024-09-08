@@ -13,9 +13,9 @@ const App1 = () => {
       <Routes>
         <Route path="/" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/app//*" element={<App />} />
-        <Route path="/" element={<DisplayHome />} />
-        <Route path="/album/:id" element={<DisplayAlbum />} />
+        <Route path="/app/*" element={<App />} />
+        {/* <Route path="/" element={<DisplayHome />} />
+        <Route path="/album/:id" element={<DisplayAlbum />} /> */}
       </Routes>
     </Router>
   );

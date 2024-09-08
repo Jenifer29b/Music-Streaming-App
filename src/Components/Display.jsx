@@ -1,15 +1,23 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import DisplayHome from "./DisplayHome";
 import DisplayAlbum from "./DisplayAlbum";
 import { albumsData } from "../assets/frontend-assets/assets";
+import { PlayerContext } from "../context/PlayerContext";
 
 const Display = () => {
+  const { albumsData } = useContext(PlayerContext);
+
   const displayRef = useRef();
   const location = useLocation();
   const isAlbum = location.pathname.includes("album");
-  const albumId = isAlbum ? location.pathname.slice(-1) : "";
-  const bgcolor = albumsData[Number(albumId)].bgColor;
+
+  const albumId = isAlbum ? location.pathname.split("/").pop() : "";
+
+  const bgcolor =
+    isAlbum && albumsData.length > 0
+      ? albumsData.find((x) => x._id == albumId).bgColor
+      : "#121212";
 
   useEffect(() => {
     if (isAlbum) {
@@ -24,10 +32,18 @@ const Display = () => {
       ref={displayRef}
       className="w-[100%] m-2 px-6 pt-4 rounded bg[#121212] text-white overflow-auto lg:w-[75%] lg:ml-0"
     >
-      <Routes>
-        <Route path="/" element={<DisplayHome />} />
-        <Route path="/album/:id" element={<DisplayAlbum />} />
-      </Routes>
+      {albumsData.length > 0 ? (
+        <Routes>
+          <Route path="/" element={<DisplayHome />} />
+
+          <Route
+            path="*/album/:id"
+            element={
+              <DisplayAlbum album={albumsData.find((x) => x._id === albumId)} />
+            }
+          />
+        </Routes>
+      ) : null}
     </div>
   );
 };

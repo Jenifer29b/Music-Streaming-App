@@ -1,0 +1,10 @@
+{
+  "playlists": [
+    { "id": 1, "name": "My Favorites", "songs": [] },
+    { "id": 2, "name": "Chill Vibes", "songs": [] }
+  ],
+  "songs": [
+    { "id": 1, "name": "Song A", "artist": "Artist A" },
+    { "id": 2, "name": "Song B", "artist": "Artist B" }
+  ]
+}

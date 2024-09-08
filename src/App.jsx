@@ -3,19 +3,28 @@ import Sidebar from "./Components/Sidebar";
 import Player from "./Components/Player";
 import Display from "./Components/Display";
 import { PlayerContext } from "./context/PlayerContext";
+import { Outlet } from "react-router-dom";
 
 const App = () => {
-  const { audioRef, track } = useContext(PlayerContext);
+  const { audioRef, track, songsData } = useContext(PlayerContext);
 
   return (
     <div className="h-screen bg-black">
-      <div className="h-[90%] flex">
-        <Sidebar />
-        <Display />
-      </div>
-      <Player />
+      {songsData.length !== 0 ? (
+        <>
+          <div className="h-[90%] flex">
+            <Sidebar />
+            <Display />
+          </div>
+          <Player />
+        </>
+      ) : null}
 
-      <audio ref={audioRef} src={track.file} preload="auto"></audio>
+      <audio
+        ref={audioRef}
+        src={track ? track.file : ""}
+        preload="auto"
+      ></audio>
     </div>
   );
 };

@@ -2,6 +2,8 @@ import React from "react";
 import { assets } from "../assets/frontend-assets/assets";
 import { PlayerContext } from "../context/PlayerContext";
 import { useContext } from "react";
+import { useState } from "react";
+import LikeButton from "./LikeButton";
 
 const Player = () => {
   const {
@@ -19,9 +21,24 @@ const Player = () => {
     downloadSong,
     increaseVolume,
     playloop,
+    addSongToPlaylist,
+    playlists,
   } = useContext(PlayerContext);
 
-  return (
+  const [showPlaylistMenu, setShowPlaylistMenu] = useState(false);
+
+  const handleAddToPlaylist = (playlistId) => {
+    try {
+      console.log("Adding to playlist:", playlistId, track);
+      addSongToPlaylist(playlistId);
+      setShowPlaylistMenu(false);
+      alert("Song added to playlist successfully!");
+    } catch (error) {
+      console.log("Error adding song to playlist:", error);
+    }
+  };
+
+  return track ? (
     <div className="h-[10%] bg-black flex justify-between items-center text-white px-4">
       <div className="hidden lg:flex items-center gap-4">
         <img className="w-12" src={track.image} alt="" />
@@ -33,17 +50,13 @@ const Player = () => {
       <div className="flex flex-col items-center gap-1 m-auto">
         <div className="flex gap-4">
           <img
-            onClick={() => {
-              shuffleSong();
-            }}
+            onClick={() => shuffleSong()}
             className="w-4 cursor-pointer"
             src={assets.shuffle_icon}
             alt=""
           />
           <img
-            onClick={() => {
-              previous();
-            }}
+            onClick={() => previous()}
             className="w-4 cursor-pointer"
             src={assets.prev_icon}
             alt=""
@@ -63,25 +76,20 @@ const Player = () => {
               alt=""
             />
           )}
-
           <img
-            onClick={() => {
-              next();
-            }}
+            onClick={() => next()}
             className="w-4 cursor-pointer"
             src={assets.next_icon}
             alt=""
           />
           <img
-            onClick={() => {
-              playloop();
-            }}
+            onClick={() => playloop()}
             className="w-4 cursor-pointer"
             src={assets.loop_icon}
             alt=""
           />
           <img
-            onClick={downloadSong}
+            onClick={() => downloadSong(track.filename)}
             className="w-4 cursor-pointer"
             src="https://archive.org/download/download-png/dl.png"
             alt=""
@@ -105,9 +113,27 @@ const Player = () => {
           <p>
             {time.totalTime.minute}:{time.totalTime.second}
           </p>
-          <button className="w-4 cursor-pointer" id="likeButton">
-            ❤️
+          <LikeButton songId={track.id} />
+          <button
+            onClick={() => setShowPlaylistMenu(!showPlaylistMenu)}
+            className="w-4 cursor-pointer"
+          >
+            + Playlist
           </button>
+          {showPlaylistMenu && (
+            <div className="absolute bg-gray-800 p-2 rounded">
+              <h3 className="text-white">Add to Playlist</h3>
+              {playlists.map((playlist) => (
+                <div
+                  key={playlist._id}
+                  className="cursor-pointer text-white"
+                  onClick={() => handleAddToPlaylist(playlist._id)}
+                >
+                  {playlist.name}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -117,9 +143,7 @@ const Player = () => {
         <img className="w-4" src={assets.queue_icon} alt="" />
         <img className="w-4" src={assets.speaker_icon} alt="" />
         <img
-          onClick={() => {
-            increaseVolume();
-          }}
+          onClick={() => increaseVolume()}
           className="w-4 cursor-pointer"
           src={assets.volume_icon}
           alt=""
@@ -129,7 +153,7 @@ const Player = () => {
         <img className="w-4" src={assets.zoom_icon} alt="" />
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default Player;

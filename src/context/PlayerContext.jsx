@@ -1,5 +1,6 @@
+import axios from "axios";
 import { createContext, useEffect, useRef, useState } from "react";
-import { songsData } from "../assets/frontend-assets/assets";
+import data from "../Public/data.json";
 
 export const PlayerContext = createContext();
 
@@ -8,18 +9,69 @@ const PlayerContextProvider = (props) => {
   const seekBg = useRef(null);
   const seekBar = useRef(null);
 
-  const [track, setTrack] = useState(songsData[0]); // Initialize as null
+  const url = "http://localhost:4000";
+
+  const [songsData, setSongsData] = useState([]);
+  const [albumsData, setAlbumsData] = useState([]);
+  const [track, setTrack] = useState(null);
+
   const [playerStatus, setPlayerStatus] = useState(false);
   const [time, setTime] = useState({
-    currentTime: {
-      second: 0,
-      minute: 0,
-    },
-    totalTime: {
-      second: 0,
-      minute: 0,
-    },
+    currentTime: { second: 0, minute: 0 },
+    totalTime: { second: 0, minute: 0 },
   });
+
+  const [playlists, setPlaylists] = useState([]);
+  const [songs, setSongs] = useState([]);
+
+  useEffect(() => {
+    setPlaylists(data.playlists);
+    setSongs(data.songs);
+  }, []);
+
+  const createPlaylist = (name) => {
+    const newPlaylist = {
+      id: Date.now(),
+      name,
+      songs: [],
+    };
+    setPlaylists([...playlists, newPlaylist]);
+  };
+
+  const addSongToPlaylist = (playlistId, song) => {
+    setPlaylists(
+      playlists.map((playlist) => {
+        if (playlist.id === playlistId) {
+          return { ...playlist, songs: [...playlist.songs, song] };
+        }
+        return playlist;
+      })
+    );
+  };
+
+  const removeSongFromPlaylist = (playlistId, songId) => {
+    setPlaylists(
+      playlists.map((playlist) => {
+        if (playlist.id === playlistId) {
+          return {
+            ...playlist,
+            songs: playlist.songs.filter((song) => song.id !== songId),
+          };
+        }
+        return playlist;
+      })
+    );
+  };
+
+  const [currentLikedSongId, setCurrentLikedSongId] = useState(null);
+
+  const likeSong = (songId) => {
+    setCurrentLikedSongId(songId);
+  };
+
+  const isSongLiked = (songId) => {
+    return currentLikedSongId === songId;
+  };
 
   const play = () => {
     if (audioRef.current) {
@@ -36,8 +88,9 @@ const PlayerContextProvider = (props) => {
   };
 
   const playWithId = async (id) => {
-    if (songsData[id]) {
-      await setTrack(songsData[id]);
+    const song = songsData.find((item) => id === item._id);
+    if (song) {
+      await setTrack(song);
       if (audioRef.current) {
         audioRef.current.play();
         setPlayerStatus(true);
@@ -46,8 +99,11 @@ const PlayerContextProvider = (props) => {
   };
 
   const previous = async () => {
-    if (track.id > 0) {
-      await setTrack(songsData[track.id - 1]);
+    const index = songsData.findIndex(
+      (item) => track && track._id === item._id
+    );
+    if (index > 0) {
+      await setTrack(songsData[index - 1]);
       if (audioRef.current) {
         audioRef.current.play();
         setPlayerStatus(true);
@@ -56,8 +112,11 @@ const PlayerContextProvider = (props) => {
   };
 
   const next = async () => {
-    if (track.id < songsData.length - 1) {
-      await setTrack(songsData[track.id + 1]);
+    const index = songsData.findIndex(
+      (item) => track && track._id === item._id
+    );
+    if (index >= 0 && index < songsData.length - 1) {
+      await setTrack(songsData[index + 1]);
       if (audioRef.current) {
         audioRef.current.play();
         setPlayerStatus(true);
@@ -95,18 +154,46 @@ const PlayerContextProvider = (props) => {
     }
   };
 
+  const getSongsData = async () => {
+    try {
+      const response = await axios.get(`${url}/api/song/list`);
+      setSongsData(response.data.songs);
+      setTrack(response.data.songs[0]);
+    } catch (error) {
+      console.error("Error fetching songs data:", error);
+    }
+  };
+
+  const getAlbumsData = async () => {
+    try {
+      const response = await axios.get(`${url}/api/album/list`);
+      setAlbumsData(response.data.albums);
+    } catch (error) {
+      console.error("Error fetching albums data:", error);
+    }
+  };
+
   const playloop = () => {
     if (audioRef.current) {
       audioRef.current.loop = true;
-
-      // // Start playback if not already playing
-      // if (audioRef.current.paused) {
-      //   audioRef.current.play().catch((error) => {
-      //     console.error("Error trying to play the audio:", error);
-      //   });
-      // }
     }
   };
+
+  // const addSongToPlaylist = (playlistId) => {
+  //   if (!track) return;
+
+  //   console.log("Attempting to add track to playlist:", playlistId, track);
+
+  //   setPlaylists((prevPlaylists) => {
+  //     const updatedPlaylists = prevPlaylists.map((playlist) =>
+  //       playlist._id === playlistId
+  //         ? { ...playlist, songs: [...playlist.songs, track] }
+  //         : playlist
+  //     );
+  //     console.log("Updated playlists:", updatedPlaylists);
+  //     return updatedPlaylists;
+  //   });
+  // };
 
   useEffect(() => {
     if (audioRef.current) {
@@ -132,6 +219,11 @@ const PlayerContextProvider = (props) => {
     }
   }, [audioRef.current]);
 
+  useEffect(() => {
+    getSongsData();
+    getAlbumsData();
+  }, []);
+
   const contextValue = {
     audioRef,
     seekBg,
@@ -152,6 +244,16 @@ const PlayerContextProvider = (props) => {
     downloadSong,
     increaseVolume,
     playloop,
+    songsData,
+    albumsData,
+    addSongToPlaylist,
+    playlists,
+    songs,
+    createPlaylist,
+    removeSongFromPlaylist,
+    currentLikedSongId,
+    likeSong,
+    isSongLiked,
   };
 
   return (
