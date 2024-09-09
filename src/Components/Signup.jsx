@@ -38,7 +38,7 @@ const Signup = () => {
   };
 
   return (
-    <Form onFinish={handleSubmit} layout="vertical">
+    <Form onFinish={handleSubmit} layout="vertical" className="auth">
       <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
       <Form.Item
         name="email"
