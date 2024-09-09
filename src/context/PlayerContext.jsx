@@ -179,22 +179,6 @@ const PlayerContextProvider = (props) => {
     }
   };
 
-  // const addSongToPlaylist = (playlistId) => {
-  //   if (!track) return;
-
-  //   console.log("Attempting to add track to playlist:", playlistId, track);
-
-  //   setPlaylists((prevPlaylists) => {
-  //     const updatedPlaylists = prevPlaylists.map((playlist) =>
-  //       playlist._id === playlistId
-  //         ? { ...playlist, songs: [...playlist.songs, track] }
-  //         : playlist
-  //     );
-  //     console.log("Updated playlists:", updatedPlaylists);
-  //     return updatedPlaylists;
-  //   });
-  // };
-
   useEffect(() => {
     if (audioRef.current) {
       const handleTimeUpdate = () => {

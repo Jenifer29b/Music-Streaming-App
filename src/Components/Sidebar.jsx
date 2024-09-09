@@ -12,7 +12,7 @@ const Sidebar = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const api = "https://localhost:4000"; // Update to your API URL
+  // Update to your API URL
 
   useEffect(() => {
     if (search.trim() === "") {
@@ -24,7 +24,7 @@ const Sidebar = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:4000/api/song/search?query=${encodeURIComponent(
+          `https://capstonebackend-aifo.onrender.com//api/song/search?query=${encodeURIComponent(
             search
           )}`
         );
@@ -139,7 +139,6 @@ const Sidebar = () => {
         {playlists.map((playlist) => (
           <div key={playlist.id}>
             <p>{playlist.name}</p>
-            {/* Optionally: Add UI for viewing or managing songs */}
           </div>
         ))}
       </div>

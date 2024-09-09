@@ -7,7 +7,6 @@ const Navebar = () => {
 
   const handlechange = () => {
     localStorage.clear();
-
     navigate("/");
   };
 
