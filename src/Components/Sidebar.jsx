@@ -109,7 +109,7 @@ const Sidebar = () => {
             <img className="w-5" src={assets.plus_icon} alt="" />
           </div>
         </div>
-        <button onClick={() => setShowModal(true)}>Create Playlist </button>
+        <button onClick={() => setShowModal(true)}>Create Playlist</button>
         {showModal && (
           <div className="modal">
             <input
@@ -137,7 +137,7 @@ const Sidebar = () => {
       <div>
         <h3>Your Playlists</h3>
         {playlists.map((playlist) => (
-          <div key={playlist.id}>
+          <div key={playlist.id} className="cursor-pointer">
             <p>{playlist.name}</p>
           </div>
         ))}

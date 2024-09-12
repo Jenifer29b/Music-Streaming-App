@@ -9,15 +9,17 @@ import App from "./App.jsx";
 
 const App1 = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/app/*" element={<App />} />
-        {/* <Route path="/" element={<DisplayHome />} />
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/app/*" element={<App />} />
+          {/* <Route path="/" element={<DisplayHome />} />
         <Route path="/album/:id" element={<DisplayAlbum />} /> */}
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </>
   );
 };
 

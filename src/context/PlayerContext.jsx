@@ -9,7 +9,7 @@ const PlayerContextProvider = (props) => {
   const seekBg = useRef(null);
   const seekBar = useRef(null);
 
-  const url = "http://localhost:4000";
+  const url = "https://capstonebackend-aifo.onrender.com";
 
   const [songsData, setSongsData] = useState([]);
   const [albumsData, setAlbumsData] = useState([]);
