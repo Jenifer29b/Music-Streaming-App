@@ -31,11 +31,11 @@ const Display = () => {
       ref={displayRef}
       className="w-[100%] m-2 px-6 pt-4 rounded bg-[#121212] text-white overflow-auto lg:w-[75%] lg:ml-0"
     >
-      {albumsData.length > 0 ? (
+      {albumsData && albumsData.length > 0 ? (
         <Routes>
-          <Route path="/" element={<DisplayHome />} />
+          <Route index element={<DisplayHome />} />
           <Route
-            path="/album/:id"
+            path="album/:id"
             element={
               <DisplayAlbum album={albumsData.find((x) => x._id === albumId)} />
             }
