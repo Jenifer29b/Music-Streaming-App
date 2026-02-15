@@ -9,10 +9,10 @@ const App = () => {
   const { audioRef, track, songsData } = useContext(PlayerContext);
 
   return (
-    <div className="h-screen bg-black ">
+    <div className="h-screen bg-black flex flex-col ">
       {songsData?.length !== 0 ? (
         <>
-          <div className="h-[90%] flex">
+          <div className="h-[90%] flex flex-1 overflow-hidden">
             <Sidebar />
             <Display />
             <Outlet />

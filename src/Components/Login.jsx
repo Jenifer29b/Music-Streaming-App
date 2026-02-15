@@ -38,28 +38,30 @@ const Login = () => {
 
   return (
     <Form onFinish={handleSubmit} layout="vertical">
+      <div className="w-full absolute top-5 flex justify-center">
+        <h1 className="text-4xl font-serif">Music World</h1>
+      </div>
+
       <h1 className="text-2xl font-bold mb-4">Log In</h1>
       <Form.Item
         className="font-bold"
         name="email"
-        label="Email"
         rules={[
           {
             required: true,
-            type: "email",
+
             message: "Please enter a valid email!",
           },
         ]}
       >
-        <Input />
+        <Input placeholder="Email" />
       </Form.Item>
       <Form.Item
         className="font-bold"
         name="password"
-        label="Password"
         rules={[{ required: true, message: "Please enter your password!" }]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Password" />
       </Form.Item>
       <Form.Item>
         <Button

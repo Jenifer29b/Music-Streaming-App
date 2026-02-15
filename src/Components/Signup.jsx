@@ -39,12 +39,15 @@ const Signup = () => {
 
   return (
     <Form onFinish={handleSubmit} layout="vertical" className="auth">
-      <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
+      <div className="w-full absolute top-6 flex justify-center">
+        <h1 className="text-5xl font-serif">Music World</h1>
+      </div>
+
+      <h1 className="text-3xl font-bold mb-4">Create an account</h1>
       <Form.Item
         name="email"
         className="font-bold"
         type="email"
-        label="Email"
         placeholder="Enter your email"
         rules={[
           {
@@ -54,25 +57,23 @@ const Signup = () => {
           },
         ]}
       >
-        <Input />
+        <Input placeholder="Email" />
       </Form.Item>
       <Form.Item
         name="password"
         className="font-bold"
-        label="Password"
         placeholder="Enter your password"
         rules={[{ required: true, message: "Please enter your password!" }]}
       >
-        <Input.Password />
+        <Input.Password placeholder=" Password" />
       </Form.Item>
       <Form.Item
         name="conformpassword"
         className="font-bold"
-        label="Confirm Password"
         placeholder="Confirm your password"
         rules={[{ required: true, message: "Please confirm your password!" }]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Confirm Password" />
       </Form.Item>
       <Form.Item gap={2}>
         <Button type="primary" htmlType="submit" loading={loading}>

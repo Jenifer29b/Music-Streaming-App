@@ -11,7 +11,8 @@ const DisplayAlbum = () => {
 
   useEffect(() => {
     if (albumsData && id) {
-      const foundAlbum = albumsData.find((item) => item.id === id);
+      const foundAlbum = albumsData.find((item) => item._id === id);
+
       setAlbumData(foundAlbum);
     }
   }, [albumsData, id]);
@@ -25,13 +26,13 @@ const DisplayAlbum = () => {
       <Navebar />
       <div className="mt-10 flex gap-8 flex-col md:flex-row md:items-end">
         <img
-          className="w-24 h-24 object-cover cursor-pointer rounded"
+          className="w-32 md:w-48 lg:w-60 aspect-square object-cover rounded"
           src={albumData.image}
           alt={albumData.name}
         />
         <div className="flex flex-col">
           <p>Playlists</p>
-          <h2 className="text-5xl font-bold mb-4 md:text-7xl">
+          <h2 className="text-3xl md:text-5xl lg:text-7xl font-bold mb-4">
             {albumData.name}
           </h2>
           <h4>{albumData.desc}</h4>

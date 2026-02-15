@@ -8,8 +8,10 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #0d6f0c;
-    background-image: url(https://www.sheerid.com/shoppers/wp-content/uploads/sites/4/2020/05/spotify-deal-page-467x316.jpg);
+    background-color: ghostwhite;
+    background-image: url(https://community.thriveglobal.com/wp-content/uploads/2021/11/pexels-moose-photos-1037996-1600x900.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 m-container{
