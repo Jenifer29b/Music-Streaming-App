@@ -7,7 +7,7 @@ const Navebar = () => {
 
   const handlechange = () => {
     localStorage.clear();
-    navigate("/");
+    navigate("/login");
   };
 
   return (

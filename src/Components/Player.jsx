@@ -88,12 +88,12 @@ const Player = () => {
             src={assets.loop_icon}
             alt=""
           />
-          <img
+          {/* <img
             onClick={() => downloadSong(track.filename)}
             className="w-4 cursor-pointer"
             src="https://archive.org/download/download-png/dl.png"
             alt=""
-          />
+          /> */}
         </div>
 
         <div className="flex items-center gap-5">
@@ -114,26 +114,33 @@ const Player = () => {
             {time.totalTime.minute}:{time.totalTime.second}
           </p>
           <LikeButton songId={track.id} />
-          <button
-            onClick={() => setShowPlaylistMenu(!showPlaylistMenu)}
-            className="w-4 cursor-pointer"
-          >
-            + Playlist
-          </button>
-          {showPlaylistMenu && (
-            <div className="absolute bg-gray-800 p-2 rounded">
-              <h3 className="text-white">Add to Playlist</h3>
-              {playlists.map((playlist) => (
-                <div
-                  key={playlist._id}
-                  className="cursor-pointer text-white"
-                  onClick={() => handleAddToPlaylist(playlist._id)}
-                >
-                  {playlist.name}
+          <>
+            <button
+              onClick={() => setShowPlaylistMenu(!showPlaylistMenu)}
+              className=" cursor-pointer"
+            >
+              + Playlist
+            </button>
+            {showPlaylistMenu && (
+              <div className="absolute bg-gray-800 p-2 rounded">
+                <button className="text-white">Add to Playlist</button>
+                <div className="absolute bottom-full mb-2 bg-gray-800 rounded shadow-lg">
+                  <div className="absolute bottom-full mb-2 bg-gray-800 rounded shadow-lg">
+                    {playlists.map((playlist) => (
+                      <p
+                        key={playlist.id}
+                        className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                        onClick={()=>handleAddToPlaylist(playlist._id)}
+                      >
+                        {playlist.name}
+                      </p>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            )}
+            
+          </>
         </div>
       </div>
 

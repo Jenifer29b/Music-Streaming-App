@@ -133,8 +133,8 @@ const Sidebar = () => {
 
         {playlists.map((playlist) => (
           <div key={playlist.id} className="cursor-pointer">
-            <p>{playlist.name}</p>
-          </div>
+            <p className="flex items-center justify-center ">{playlist.name}</p>
+          </div> 
         ))}
       </div>
 
