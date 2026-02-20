@@ -22,7 +22,7 @@ const DisplayAlbum = () => {
   }
 
   return (
-    <>
+    <div className="w-screen overflow-x-hidden" >
       <Navebar />
       <div className="mt-10 flex gap-8 flex-col md:flex-row md:items-end">
         <img
@@ -78,7 +78,7 @@ const DisplayAlbum = () => {
             <p className="text-[15px] text-center">{item.duration}</p>
           </div>
         ))}
-    </>
+    </div>
   );
 };
 
